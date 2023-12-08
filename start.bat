@@ -15,9 +15,8 @@ echo Made by Dayton Daniels
 
 
 :inputURL
-set /P inputUrl="'Input your source URL': " || set "inputUrl="Invalid Value""
-echo %inputUrl%
-ping %inputUrl% || call:inputURL
+set /P inputUrl="'Input your source URL(Make sure to use double quotation marks': " || set "inputUrl="Invalid Value""
+if [%inputUrl%]==[] call:inputURL
 goto:fileType
 goto:eof
 
@@ -33,7 +32,5 @@ goto:eof
 if [%fileType%]==["Video"] set "-f mp4"
 if [%fileType%]==["Audio"] set "-x --audio-format mp3"
 
-echo "URL: %inputURL% File Type: %fileType% File Location: %fileLocation%"
-set downloadInit1 = "./src/youtube-dl.exe %inputURL% %fileType%"
-
-goto:eof
+echo "URL: %inputURL% File Type: %fileType%"
+cd src&youtube-dl.exe %inputURL% %fileType%
