@@ -1,6 +1,5 @@
 @echo off
-
-
+cls
 
 
 echo Welcome to Youtube-DL Wrapper
@@ -15,22 +14,27 @@ echo Made by Dayton Daniels
 
 
 :inputURL
-set /P inputUrl="'Input your source URL(Make sure to use double quotation marks': " || set "inputUrl="Invalid Value""
-if [%inputUrl%]==[] call:inputURL
+echo "Enter your url:"
+set /P inputUrl=""
+
 goto:fileType
 goto:eof
 
 :fileType
-set /P fileType="'Input file type, Ex: Video, Audio': " || set "fileType="
-if [%fileType%]==[] call:fileType
-goto:downloadFile
-goto:eof
+cls
+echo "Enter file type:"
+echo 1:mp4 3:webm
+echo 2:mp3 4:flac
+echo ("1-------9)
+choice /c 1234 /n /m "Enter the number of your choice: "
+set errorlevel_value=%errorlevel%
 
-
-:downloadFile
-
-if [%fileType%]==["Video"] set "-f mp4"
-if [%fileType%]==["Audio"] set "-x --audio-format mp3"
-
-echo "URL: %inputURL% File Type: %fileType%"
-cd src&youtube-dl.exe %inputURL% %fileType%
+if %errorlevel_value% equ 4 (
+    call config.bat :flac %inputUrl%
+) else if %errorlevel_value% equ 3 (
+	call config.bat :webm %inputUrl%
+) else if %errorlevel_value% equ 2 (
+	call config.bat :mp3 %inputUrl%
+) else if %errorlevel_value% equ 1 (
+	call config.bat :mp4 %inputUrl%
+)
