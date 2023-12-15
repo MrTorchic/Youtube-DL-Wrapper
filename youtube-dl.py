@@ -6,7 +6,7 @@ from art import *
 os.system("cls")
 tprint("YOUTUBE-DL","emo")
 tprint("by dayton daniels","emo")
-print('Press ANY key to Continue') 
+print('Press the ENTER key to Continue') 
 input()
 
 def getUrl():
